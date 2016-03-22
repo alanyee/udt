@@ -432,17 +432,14 @@ DWORD WINAPI Test_3_Srv(LPVOID param)
 
   int peer_port = 51000;
 
-  vector<UDTSOCKET>::iterator i = srv_socks.begin(); // vector<UDTSOCKET>::iterator
-  for (; i != srv_socks.end(); ++i) connect(*i, peer_port ++);
+  for (vector<UDTSOCKET>::iterator i = srv_socks.begin(); i != srv_socks.end(); ++i) connect(*i, peer_port ++);
 
-  vector<UDTSOCKET>::iterator i = srv_socks.begin(); // vector<UDTSOCKET>::iterator
-  for (; i != srv_socks.end(); ++i) {
+  for (vector<UDTSOCKET>::iterator i = srv_socks.begin(); i != srv_socks.end(); ++i) {
     int32_t data = 0;
     UDT::recv(*i, (char*)&data, 4, 0);
   }
 
-  vector<UDTSOCKET>::iterator i = srv_socks.begin(); // vector<UDTSOCKET>::iterator
-  for (; i != srv_socks.end(); ++ i) UDT::close(*i);
+  for (vector<UDTSOCKET>::iterator i = srv_socks.begin(); i != srv_socks.end(); ++ i) UDT::close(*i);
 
   return NULL;
 }
@@ -551,16 +548,15 @@ DWORD WINAPI start_and_destroy_clients(LPVOID param)
     }
   }
 
-  vector<UDTSOCKET>::iterator i = cli_socks.begin(); // vector<UDTSOCKET>::iterator
-  for (; i != cli_socks.end(); ++i) {
+  for (vector<UDTSOCKET>::iterator i = cli_socks.begin(); i != cli_socks.end(); ++i) {
     if (connect(*i, g_Server_Port) < 0) {
       cout << "connect: " << UDT::getlasterror().getErrorMessage() << endl;
       return NULL;
     }
   }
 
-  vector<UDTSOCKET>::iterator i = cli_socks.begin(); // vector<UDTSOCKET>::iterator
-  for (; i != cli_socks.end(); ++i) UDT::close(*i);
+   // vector<UDTSOCKET>::iterator
+  for (vector<UDTSOCKET>::iterator i = cli_socks.begin(); i != cli_socks.end(); ++i) UDT::close(*i);
 
   return NULL;
 }

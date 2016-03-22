@@ -90,6 +90,7 @@ connect: Connection setup failure: connection time out.
 * sendfile to udtfileserver
 * recvfile to udtrecvfile
 * [Google's C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
+* Add "auto". Right now, code works with gcc version: 4.4.7
 
 ## Original
 
