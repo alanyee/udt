@@ -68,9 +68,9 @@ int main(int argc, char* argv[]) {
 
   UDTSOCKET recver;
 
-  bool flag = true;
+  int flag = 0;
   
-  while (flag) {
+  while (flag != 2) {
     if (UDT::INVALID_SOCK == (recver = UDT::accept(serv, (sockaddr*)&clientaddr, &addrlen))) {
       cout << "accept: " << UDT::getlasterror().getErrorMessage() << endl;
       return 0;
@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
     char clienthost[NI_MAXHOST];
     char clientservice[NI_MAXSERV];
     getnameinfo((sockaddr *)&clientaddr, addrlen, clienthost, sizeof(clienthost), clientservice, sizeof(clientservice), NI_NUMERICHOST|NI_NUMERICSERV);
-    if (3 == argc) flag = false;
+    ++flag;
     cout << "new connection: " << clienthost << ":" << clientservice << endl;
 
     #ifndef WIN32
