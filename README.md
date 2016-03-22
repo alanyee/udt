@@ -45,7 +45,7 @@ SendRate(Mb/s)	RTT(ms)	CWnd	PktSndPeriod(us)	RecvACK	RecvNAK
 949.953		0.969	3946	3.18665			1182	0
 950.228		1.128	3853	3.11168			1183	0
 ```
-Resulting,
+Resulting in,
 ```
 [alanyee@point-a app]$ appserver 8888
 server is ready at port: 8888
@@ -63,13 +63,16 @@ out zeros for RecvACK and Sendrate.
 1. have or create a target file i.e. 
 vi t.txt
 
-2. `[alanyee@point-a app]$ sendfile 8888`
+2.
+``` 
+[alanyee@point-a app]$ sendfile 8888
+server is ready at port: 8888
+```
+So,
 
-`server is ready at port: 8888`
+`[alanyee@point-b app]$ recvfile 99.99.99.99 8888 t.txt h.txt`
 
-3. `[alanyee@point-b app]$ recvfile 99.99.99.99 8888 t.txt h.txt`
-
-4. Resulting in:
+Resulting in,
 ```
 [alanyee@point-a app]$ sendfile 8888
 server is ready at port: 8888
