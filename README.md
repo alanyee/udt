@@ -5,11 +5,11 @@ Using udt for iDPL
 
 ## Current iteration
 
-### For appserver and appclient
+### For original appserver and appclient
 
-1. google udt
+1. google udt and goto http://udt.sourceforge.net/
 2. `wget`, `scp`, and/or `tar -xvcf` [source] to get file
-3. run `make`, once in the home directory of udt and then in app
+3. run `make`, once in the home directory of udt and then once in app
 4. Sometimes, appclient and/or appserver will not listen: `error while loading shared libraries: libudt.so: cannot open shared object file: No such file or directory`.
 Solution: `export LD_LIBRARY_PATH=../src`
 
@@ -24,7 +24,7 @@ So,
 [alanyee@point-a app]$ appserver 8888
 server is ready at port: 8888
 ```
-Then,
+(Or simply `appserver` which defaults to port 9000.) Then,
 ```
 [alanyee@point-b app]$ appclient 99.99.99.99 8888
 SendRate(Mb/s)	RTT(ms)	CWnd	PktSndPeriod(us)	RecvACK	RecvNAK
@@ -87,13 +87,15 @@ connect: Connection setup failure: connection time out.
 ## TODOS
 * Oneshot (-1) for recvfile
 * If it can't open a port, stderr
-* Sender (-t): total time of test
+* Sender (-t): total time of test i.e.
+```
+20 seconds
+Summary: 11 bytes sent
+```
+
+
 * sendfile to udtfileserver
 * recvfile to udtrecvfile
 * Remove windows support. Only testing for Linux/Unix support
 * [Google's C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
 * Add "auto". Right now, code works with gcc version: 4.4.7
-
-## Original
-
-http://udt.sourceforge.net/

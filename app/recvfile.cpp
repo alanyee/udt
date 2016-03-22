@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
   // send name information of the requested file
   int len = strlen(argv[3]);
 
-  if (UDT::ERROR == UDT::send(fhandle, (char*)&len, sizeof(int), 0)) {
+  if (UDT::ERROR == UDT::send(fhandle, (char*)& len, sizeof(int), 0)) {
     cout << "send: " << UDT::getlasterror().getErrorMessage() << endl;
     return -1;
   }
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
   // get size information
   int64_t size;
 
-  if (UDT::ERROR == UDT::recv(fhandle, (char*)&size, sizeof(int64_t), 0)) {
+  if (UDT::ERROR == UDT::recv(fhandle, (char*)& size, sizeof(int64_t), 0)) {
     cout << "send: " << UDT::getlasterror().getErrorMessage() << endl;
     return -1;
   }

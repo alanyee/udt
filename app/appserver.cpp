@@ -38,21 +38,20 @@ int main(int argc, char* argv[]) {
   hints.ai_flags = AI_PASSIVE;
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
-  //hints.ai_socktype = SOCK_DGRAM;
 
   string service("9000");
   if (2 == argc) service = argv[1];
 
   if (0 != getaddrinfo(NULL, service.c_str(), &hints, &res)) {
-    cout << "illegal port number or port is busy.\n" << endl;
-    return 0;
+    cerr << "illegal port number or port is busy.\n" << endl;
+    return -1;
   }
 
   UDTSOCKET serv = UDT::socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 
   if (UDT::ERROR == UDT::bind(serv, res->ai_addr, res->ai_addrlen)) {
-    cout << "bind: " << UDT::getlasterror().getErrorMessage() << endl;
-    return 0;
+    cerr << "bind: " << UDT::getlasterror().getErrorMessage() << endl;
+    return -1;
   }
 
   freeaddrinfo(res);
