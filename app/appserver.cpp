@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#ifndef WIN32
+#ifndef WIN32 
 void* recvdata(void*);
 #else
 DWORD WINAPI recvdata(LPVOID);
@@ -69,9 +69,8 @@ int main(int argc, char* argv[]) {
   UDTSOCKET recver;
 
   bool flag = true;
-  if (3 == argc) flag = false;
-   
-  do {
+  
+  while (flag) {
     if (UDT::INVALID_SOCK == (recver = UDT::accept(serv, (sockaddr*)&clientaddr, &addrlen))) {
       cout << "accept: " << UDT::getlasterror().getErrorMessage() << endl;
       return 0;
@@ -80,6 +79,7 @@ int main(int argc, char* argv[]) {
     char clienthost[NI_MAXHOST];
     char clientservice[NI_MAXSERV];
     getnameinfo((sockaddr *)&clientaddr, addrlen, clienthost, sizeof(clienthost), clientservice, sizeof(clientservice), NI_NUMERICHOST|NI_NUMERICSERV);
+    if (3 == argc) flag = false;
     cout << "new connection: " << clienthost << ":" << clientservice << endl;
 
     #ifndef WIN32
@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
     #else
       CreateThread(NULL, 0, recvdata, new UDTSOCKET(recver), 0, NULL);
     #endif
-  } while (flag);
+  }
 
   UDT::close(serv);
 

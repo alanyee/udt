@@ -1,15 +1,15 @@
 udt (reliable datagram protocol)
 =========================
 
-Using udt for iDPL
+Using udt for iDPL. (Sometimes i.e. `./appclient` instead of `appclient` will work)
 
-## Technical Details of Original Version 
+## Technical Details of Original Version
 
 ### For appserver and appclient
 
 1. google udt and goto http://udt.sourceforge.net/ (original)
 2. `wget`, `scp`, and/or `tar -xvcf` [source] to get file
-3. run `make`, once in the home directory of udt and then once in app
+3. run `make` in the home directory, as it will also run `make` in the app directory
 4. Sometimes, appclient and/or appserver will not listen: `error while loading shared libraries: libudt.so: cannot open shared object file: No such file or directory`.
 Solution: `export LD_LIBRARY_PATH=../src`
 
