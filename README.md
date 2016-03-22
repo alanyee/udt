@@ -7,7 +7,7 @@ Using udt for iDPL
 
 ### For appserver and appclient
 
-1. google udt and goto http://udt.sourceforge.net/
+1. google udt and goto http://udt.sourceforge.net/ (original)
 2. `wget`, `scp`, and/or `tar -xvcf` [source] to get file
 3. run `make`, once in the home directory of udt and then once in app
 4. Sometimes, appclient and/or appserver will not listen: `error while loading shared libraries: libudt.so: cannot open shared object file: No such file or directory`.
@@ -86,9 +86,18 @@ connect: Connection setup failure: connection time out.
 ```
 
 ## Added Features
-* If receiver cannot open a port, print out error to stderr.
+### If receiver cannot open a port, print out error to stderr.
+```
+[alanyee@point-a app]$ appserver 80
+bind: Connection setup failure: unable to create/configure UDP socket: .
+
+[alanyee@point-a app]$ appserver 80-0
+illegal port number or port is busy.
+
+```
 
 ## TODOS
+* ~~If it can't open a port, stderr~~
 * Oneshot (-1) for receiver
 * Sender (-t): total time of test i.e.
 ```
