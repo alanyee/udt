@@ -296,11 +296,9 @@ DWORD WINAPI Test_2_Srv(LPVOID param)
     }
   }
 
-  vector<UDTSOCKET>::iterator i = new_socks.begin(); // vector<UDTSOCKET>::iterator
-  for (; i != new_socks.end(); ++i) UDT::close(*i);
+  for (vector<UDTSOCKET>::iterator i = new_socks.begin(); i != new_socks.end(); ++i) UDT::close(*i);
 
-  vector<SYSSOCKET>::iterator  i = tcp_socks.begin(); // vector<SYSSOCKET>::iterator 
-  for (; i != tcp_socks.end(); ++i) {
+  for (vector<SYSSOCKET>::iterator i = tcp_socks.begin(); i != tcp_socks.end(); ++i) {
 #ifndef WIN32
     close(*i);
 #else
@@ -385,20 +383,17 @@ DWORD WINAPI Test_2_Cli(LPVOID param)
 
   // send data from both UDT and TCP clients
   int32_t data = 0;
-  vector<UDTSOCKET>::iterator i = cli_socks.begin(); // vector<UDTSOCKET>::iterator
-  for (; i != cli_socks.end(); ++i) {
+  for (vector<UDTSOCKET>::iterator i = cli_socks.begin(); i != cli_socks.end(); ++i) {
     UDT::send(*i, (char*)& data, 4, 0);
     ++data;
   }
-  vector<SYSSOCKET>::iterator i = tcp_socks.begin(); // vector<SYSSOCKET>::iterator
-  for (; i != tcp_socks.end(); ++ i) {
+  for (vector<SYSSOCKET>::iterator i = tcp_socks.begin(); i != tcp_socks.end(); ++ i) {
     send(*i, (char*)& data, 4, 0);
     ++data;
   }
 
   // close all client sockets
-  vector<UDTSOCKET>::iterator i = cli_socks.begin(); // vector<UDTSOCKET>::iterator
-  for (; i != cli_socks.end(); ++i) UDT::close(*i);
+  for (vector<UDTSOCKET>::iterator i = cli_socks.begin(); i != cli_socks.end(); ++i) UDT::close(*i);
   for (vector<SYSSOCKET>::iterator i = tcp_socks.begin(); i != tcp_socks.end(); ++i)
   {
 #ifndef WIN32
@@ -469,18 +464,15 @@ DWORD WINAPI Test_3_Cli(LPVOID param)
 
   int peer_port = 61000;
 
-  vector<UDTSOCKET>::iterator i = cli_socks.begin();
-  for (; i != cli_socks.end(); ++i) connect(*i, peer_port ++);
+  for (vector<UDTSOCKET>::iterator i = cli_socks.begin(); i != cli_socks.end(); ++i) connect(*i, peer_port ++);
 
   int32_t data = 0;
-  vector<UDTSOCKET>::iterator i = cli_socks.begin();
-  for (; i != cli_socks.end(); ++i) {
+  for (vector<UDTSOCKET>::iterator i = cli_socks.begin(); i != cli_socks.end(); ++i) {
     UDT::send(*i, (char*)& data, 4, 0);
     ++data;
   }
 
-  vector<UDTSOCKET>::iterator i = cli_socks.begin(); // vector<UDTSOCKET>::iterator
-  for (; i != cli_socks.end(); ++i) UDT::close(*i);
+  for (vector<UDTSOCKET>::iterator i = cli_socks.begin(); i != cli_socks.end(); ++i) UDT::close(*i);
 
   return NULL;
 }
@@ -583,26 +575,22 @@ DWORD WINAPI Test_4_Cli(LPVOID)
   vector<pthread_t> cli_threads;
   cli_threads.resize(g_UDTThreads);
 
-  vector<pthread_t>::iterator  i = cli_threads.begin(); // vector<pthread_t>::iterator 
-  for (; i != cli_threads.end(); ++i) {
+  for (vector<pthread_t>::iterator  i = cli_threads.begin(); i != cli_threads.end(); ++i) {
     pthread_create(&(*i), NULL, start_and_destroy_clients, NULL);
   }
 
-  vector<pthread_t>::iterator i = cli_threads.begin(); // vector<pthread_t>::iterator 
-  for (; i != cli_threads.end(); ++i) {
+  for (vector<pthread_t>::iterator i = cli_threads.begin(); i != cli_threads.end(); ++i) {
     pthread_join(*i, NULL);
   }
 #else
   vector<HANDLE> cli_threads;
   cli_threads.resize(g_UDTThreads);
 
-  vector<HANDLE>::iterator i = cli_threads.begin(); // vector<HANDLE>::iterator
-  for (; i != cli_threads.end(); ++i) {
+  for (vector<HANDLE>::iterator i = cli_threads.begin(); i != cli_threads.end(); ++i) {
     *i = CreateThread(NULL, 0, NULL, start_and_destroy_clients, 0, NULL);
   }
 
-  vector<HANDLE>::iterator i = cli_threads.begin(); // vector<HANDLE>::iterator
-  for (; i != cli_threads.end(); ++i) WaitForSingleObject(*i, INFINITE);
+  for (vector<HANDLE>::iterator i = cli_threads.begin(); i != cli_threads.end(); ++i) WaitForSingleObject(*i, INFINITE);
 #endif
 
   return NULL;
