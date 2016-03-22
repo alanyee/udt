@@ -64,6 +64,7 @@ out zeros for RecvACK and Sendrate.
 vi t.txt
 
 2. `[alanyee@point-a app]$ sendfile 8888`
+
 `server is ready at port: 8888`
 
 3. `[alanyee@point-b app]$ recvfile 99.99.99.99 8888 t.txt h.txt`
