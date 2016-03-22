@@ -89,6 +89,7 @@ connect: Connection setup failure: connection time out.
 * Sender (-t): total time of test
 * sendfile to udtfileserver
 * recvfile to udtrecvfile
+* Remove windows support. Only testing for Linux/Unix support
 * [Google's C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
 * Add "auto". Right now, code works with gcc version: 4.4.7
 
