@@ -37,7 +37,6 @@ int main(int argc, char* argv[]) {
   hints.ai_flags = AI_PASSIVE;
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
-  //hints.ai_socktype = SOCK_DGRAM;
 
   if (0 != getaddrinfo(NULL, "9000", &hints, &local)) {
     cout << "incorrect network address.\n" << endl;
@@ -46,28 +45,11 @@ int main(int argc, char* argv[]) {
 
   UDTSOCKET client = UDT::socket(local->ai_family, local->ai_socktype, local->ai_protocol);
 
-  // UDT Options
-  //UDT::setsockopt(client, 0, UDT_CC, new CCCFactory<CUDPBlast>, sizeof(CCCFactory<CUDPBlast>));
-  //UDT::setsockopt(client, 0, UDT_MSS, new int(9000), sizeof(int));
-  //UDT::setsockopt(client, 0, UDT_SNDBUF, new int(10000000), sizeof(int));
-  //UDT::setsockopt(client, 0, UDP_SNDBUF, new int(10000000), sizeof(int));
-  //UDT::setsockopt(client, 0, UDT_MAXBW, new int64_t(12500000), sizeof(int));
-
   // Windows UDP issue
   // For better performance, modify HKLM\System\CurrentControlSet\Services\Afd\Parameters\FastSendDatagramThreshold
   #ifdef WIN32
     UDT::setsockopt(client, 0, UDT_MSS, new int(1052), sizeof(int));
   #endif
-
-  // for rendezvous connection, enable the code below
-  /*
-  UDT::setsockopt(client, 0, UDT_RENDEZVOUS, new bool(true), sizeof(bool));
-  if (UDT::ERROR == UDT::bind(client, local->ai_addr, local->ai_addrlen))
-  {
-    cout << "bind: " << UDT::getlasterror().getErrorMessage() << endl;
-    return 0;
-  }
-  */
 
   freeaddrinfo(local);
 
@@ -85,11 +67,6 @@ int main(int argc, char* argv[]) {
   freeaddrinfo(peer);
 
   // using CC method
-  //CUDPBlast* cchandle = NULL;
-  //int temp;
-  //UDT::getsockopt(client, 0, UDT_CC, &cchandle, &temp);
-  //if (NULL != cchandle)
-  //   cchandle->setRate(500);
 
   int size = 100000;
   char* data = new char[size];

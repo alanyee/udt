@@ -1,4 +1,4 @@
-udt (reliable datagram protocal)
+udt (reliable datagram protocol)
 =========================
 
 Using udt for iDPL
@@ -18,7 +18,7 @@ export LD_LIBRARY_PATH=../src
 5. Usage
 (run the server first before the client or else connect  error)
 [alanyee@point-a app]$ curl http://ipecho.net/plain; echo
-99.99.99.99
+    99.99.99.99
 
 So,
 
