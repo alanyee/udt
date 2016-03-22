@@ -8,22 +8,22 @@ Using udt for iDPL
 ### For appserver and appclient
 
 1. google udt
-2. wget, scp, and/or tar -xvcf [source] to get file
-3. run make, once in the home directory of udt and then in app
-4. Sometimes, appclient and/or appserver will not listen (or error while loading shared libraries: libudt.so: cannot open shared object file: No such file or directory"
-Solution:
-export LD_LIBRARY_PATH=../src
+2. `wget`, `scp`, and/or `tar -xvcf` [source] to get file
+3. run `make`, once in the home directory of udt and then in app
+4. Sometimes, appclient and/or appserver will not listen: `error while loading shared libraries: libudt.so: cannot open shared object file: No such file or directory`
+Solution: `export LD_LIBRARY_PATH=../src`
 
 
 5. Usage (run the server first before the client or else connect  error)
-				[alanyee@point-a app]$ curl http://ipecho.net/plain; echo
-				99.99.99.99
-
+```
+[alanyee@point-a app]$ curl http://ipecho.net/plain; echo
+99.99.99.99
+```
 So,
-
+```
 [alanyee@point-a app]$ appserver 8888
 server is ready at port: 8888
-
+```
 Then,
 
 [alanyee@point-b app]$ appclient 99.99.99.99 8888
