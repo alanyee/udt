@@ -69,13 +69,15 @@ server is ready at port: 8888```
 2. `[alanyee@point-b app]$ recvfile 99.99.99.99 8888 t.txt h.txt`
 
 3. Resulting in:
-```[alanyee@point-a app]$ sendfile 8888
+```
+[alanyee@point-a app]$ sendfile 8888
 server is ready at port: 8888
 new connection: 999.999.999.999:14319
-speed = 298.667Mbits/sec```
+speed = 298.667Mbits/sec
 
-```[alanyee@point-b app]$ cat h.txt
-Here is a test.```
+[alanyee@point-b app]$ cat h.txt
+Here is a test.
+```
 
 Sendfile remains open while recvfile closes. Upon breaking sendfile, recvfile results in:
 ```
