@@ -10,7 +10,7 @@ Using udt for iDPL
 1. google udt
 2. `wget`, `scp`, and/or `tar -xvcf` [source] to get file
 3. run `make`, once in the home directory of udt and then in app
-4. Sometimes, appclient and/or appserver will not listen: `error while loading shared libraries: libudt.so: cannot open shared object file: No such file or directory`
+4. Sometimes, appclient and/or appserver will not listen: `error while loading shared libraries: libudt.so: cannot open shared object file: No such file or directory`.
 Solution: `export LD_LIBRARY_PATH=../src`
 
 
@@ -25,7 +25,7 @@ So,
 server is ready at port: 8888
 ```
 Then,
-
+```
 [alanyee@point-b app]$ appclient 99.99.99.99 8888
 SendRate(Mb/s)	RTT(ms)	CWnd	PktSndPeriod(us)	RecvACK	RecvNAK
 754.663		1.029	3965	4.95023			940	2
@@ -44,16 +44,16 @@ SendRate(Mb/s)	RTT(ms)	CWnd	PktSndPeriod(us)	RecvACK	RecvNAK
 950.242		0.996	4089	3.32777			1182	0
 949.953		0.969	3946	3.18665			1182	0
 950.228		1.128	3853	3.11168			1183	0
-
+```
 Resulting,
-
+```
 [alanyee@point-a app]$ appserver 8888
 server is ready at port: 8888
 new connection: 999.999.999.999:13587
-
+```
 
 Breaking the client stops the client while the server reads:
-recv:Connection was broken.
+`recv:Connection was broken.`
 
 But breaking the server stops the server while the client continues to print 
 out zeros for RecvACK and Sendrate.
@@ -63,25 +63,25 @@ out zeros for RecvACK and Sendrate.
 0. have or create a target file i.e. 
 vi t.txt
 
-1. [alanyee@point-a app]$ sendfile 8888
-server is ready at port: 8888
+1. ```[alanyee@point-a app]$ sendfile 8888
+server is ready at port: 8888```
 
-2. [alanyee@point-b app]$ recvfile 99.99.99.99 8888 t.txt h.txt
+2. `[alanyee@point-b app]$ recvfile 99.99.99.99 8888 t.txt h.txt`
 
 3. Resulting in:
-[alanyee@point-a app]$ sendfile 8888
+```[alanyee@point-a app]$ sendfile 8888
 server is ready at port: 8888
 new connection: 999.999.999.999:14319
 speed = 298.667Mbits/sec
 
 [alanyee@point-b app]$ cat h.txt
-Here is a test.
+Here is a test.```
 
 Sendfile remains open while recvfile closes. Upon breaking sendfile, recvfile results in:
-
+```
 [alanyee@point-b app]$ recvfile 99.99.99.99 8888 t.txt h.txt
 connect: Connection setup failure: connection time out.
-
+```
 ## TODOS
 * Oneshot (-1) for recvfile
 * If it can't open a port, stderr
