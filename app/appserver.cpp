@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
   hints.ai_socktype = SOCK_STREAM;
 
   string service("9000");
-  if (2 == argc) service = argv[1];
+  if (2 == argc || 3 == argc) service = argv[1];
 
   if (0 != getaddrinfo(NULL, service.c_str(), &hints, &res)) {
     cerr << "illegal port number or port is busy." << endl;
@@ -68,7 +68,10 @@ int main(int argc, char* argv[]) {
 
   UDTSOCKET recver;
 
-  while (true) {
+  bool flag = true;
+  if (3 == argc) flag = false;
+   
+  do {
     if (UDT::INVALID_SOCK == (recver = UDT::accept(serv, (sockaddr*)&clientaddr, &addrlen))) {
       cout << "accept: " << UDT::getlasterror().getErrorMessage() << endl;
       return 0;
@@ -86,7 +89,7 @@ int main(int argc, char* argv[]) {
     #else
       CreateThread(NULL, 0, recvdata, new UDTSOCKET(recver), 0, NULL);
     #endif
-  }
+  } while (flag);
 
   UDT::close(serv);
 
