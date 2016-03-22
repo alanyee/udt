@@ -22,8 +22,8 @@ DWORD WINAPI recvdata(LPVOID);
 #endif
 
 int main(int argc, char* argv[]) {
-  if ((1 != argc) && ((2 != argc) || (0 == atoi(argv[1])))) {
-    cout << "usage: appserver [server_port]" << endl;
+  if ((1 != argc) && ((2 != argc) || (0 == atoi(argv[1]))) && ((3 != argc) || strcmp(argv[2], "-1"))) {
+    cout << "usage: appserver [server_port] [-1]" << endl;
     return 0;
   }
 
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
   if (2 == argc) service = argv[1];
 
   if (0 != getaddrinfo(NULL, service.c_str(), &hints, &res)) {
-    cerr << "illegal port number or port is busy.\n" << endl;
+    cerr << "illegal port number or port is busy." << endl;
     return -1;
   }
 

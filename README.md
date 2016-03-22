@@ -3,9 +3,9 @@ udt (reliable datagram protocol)
 
 Using udt for iDPL
 
-## Current iteration
+## Technical Details of Original Version 
 
-### For original appserver and appclient
+### For appserver and appclient
 
 1. google udt and goto http://udt.sourceforge.net/
 2. `wget`, `scp`, and/or `tar -xvcf` [source] to get file
@@ -84,15 +84,18 @@ Sendfile remains open while recvfile closes. Upon breaking sendfile, recvfile re
 [alanyee@point-b app]$ recvfile 99.99.99.99 8888 t.txt h.txt
 connect: Connection setup failure: connection time out.
 ```
+
+## Added Features
+* If receiver cannot open a port, print out error to stderr.
+
 ## TODOS
-* Oneshot (-1) for recvfile
-* If it can't open a port, stderr
+* Oneshot (-1) for receiver
 * Sender (-t): total time of test i.e.
 ```
-20 seconds
+appclient 99.99.99.99 8888 -t 20 
 Summary: 11 bytes sent
 ```
-
+where 20 is counted in units of seconds.
 
 * sendfile to udtfileserver
 * recvfile to udtrecvfile

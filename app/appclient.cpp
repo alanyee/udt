@@ -22,8 +22,8 @@ DWORD WINAPI monitor(LPVOID);
 #endif
 
 int main(int argc, char* argv[]) {
-  if ((3 != argc) || (0 == atoi(argv[2]))) {
-    cout << "usage: appclient server_ip server_port" << endl;
+  if (((3 != argc) || (0 == atoi(argv[2]))) && ((5 != argc) || strcmp(argv[3], "-t") || (0 == atoi(argv[4])))) {
+    cout << "usage: appclient server_ip server_port [-t] [seconds]" << endl;
     return 0;
   }
 
@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
   hints.ai_socktype = SOCK_STREAM;
 
   if (0 != getaddrinfo(NULL, "9000", &hints, &local)) {
-    cout << "incorrect network address.\n" << endl;
+    cout << "incorrect network address." << endl;
     return 0;
   }
 
