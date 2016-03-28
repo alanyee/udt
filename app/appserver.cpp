@@ -12,7 +12,7 @@ using namespace std;
 void* recvdata(void*);
 
 int main(int argc, char* argv[]) {
-  if ((1 != argc) && ((2 != argc) || (0 == atoi(argv[1]))) && ((3 != argc) || strcmp(argv[2], "-1"))) {
+  if (argc != 1 && (argc != 2 || atoi(argv[1]) == 0) && (3 != argc || strcmp(argv[2], "-1"))) {
     cout << "usage: appserver [server_port] [-1]" << endl;
     return 0;
   }
@@ -32,9 +32,9 @@ int main(int argc, char* argv[]) {
 
   // Default to port 9000 unless given otherwise
   string service("9000");
-  if (2 >= argc) service = argv[1];
+  if (argc >= 2) service = argv[1];
 
-  if (0 != getaddrinfo(NULL, service.c_str(), &hints, &res)) {
+  if (getaddrinfo(NULL, service.c_str(), &hints, &res) != 0) {
     cerr << "illegal port number or port is busy." << endl;
     return -1;
   }
