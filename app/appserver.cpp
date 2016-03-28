@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
   UDTSOCKET serv = UDT::socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 
   if (UDT::ERROR == UDT::bind(serv, res->ai_addr, res->ai_addrlen)) {
-    cerr << "bind: " << UDTSOCKETT::getlasterror().getErrorMessage() << endl;
+    cerr << "bind: " << UDT::getlasterror().getErrorMessage() << endl;
     return -1;
   }
 
