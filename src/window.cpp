@@ -60,15 +60,13 @@ m_iTail(0)
   m_piACKSeqNo[0] = -1;
 }
 
-CACKWindow::~CACKWindow()
-{
+CACKWindow::~CACKWindow() {
   delete [] m_piACKSeqNo;
   delete [] m_piACK;
   delete [] m_pTimeStamp;
 }
 
-void CACKWindow::store(int32_t seq, int32_t ack)
-{
+void CACKWindow::store(int32_t seq, int32_t ack) {
   m_piACKSeqNo[m_iHead] = seq;
   m_piACK[m_iHead] = ack;
   m_pTimeStamp[m_iHead] = CTimer::getTime();
@@ -76,33 +74,26 @@ void CACKWindow::store(int32_t seq, int32_t ack)
   m_iHead = (m_iHead + 1) % m_iSize;
 
   // overwrite the oldest ACK since it is not likely to be acknowledged
-  if (m_iHead == m_iTail)
-    m_iTail = (m_iTail + 1) % m_iSize;
+  if (m_iHead == m_iTail) m_iTail = (m_iTail + 1) % m_iSize;
 }
 
-int CACKWindow::acknowledge(int32_t seq, int32_t& ack)
-{
-  if (m_iHead >= m_iTail)
-  {
+int CACKWindow::acknowledge(int32_t seq, int32_t& ack) {
+  if (m_iHead >= m_iTail) {
     // Head has not exceeded the physical boundary of the window
 
-    for (int i = m_iTail, n = m_iHead; i < n; ++ i)
-    {
+    for (int i = m_iTail, n = m_iHead; i < n; ++i) {
       // looking for indentical ACK Seq. No.
-      if (seq == m_piACKSeqNo[i])
-      {
+      if (seq == m_piACKSeqNo[i]) {
         // return the Data ACK it carried
         ack = m_piACK[i];
 
         // calculate RTT
         int rtt = int(CTimer::getTime() - m_pTimeStamp[i]);
 
-        if (i + 1 == m_iHead)
-        {
+        if (i + 1 == m_iHead) {
           m_iTail = m_iHead = 0;
           m_piACKSeqNo[0] = -1;
-        }
-        else
+        } else
           m_iTail = (i + 1) % m_iSize;
 
         return rtt;
@@ -114,11 +105,9 @@ int CACKWindow::acknowledge(int32_t seq, int32_t& ack)
   }
 
   // Head has exceeded the physical window boundary, so it is behind tail
-  for (int j = m_iTail, n = m_iHead + m_iSize; j < n; ++ j)
-  {
+  for (int j = m_iTail, n = m_iHead + m_iSize; j < n; ++j) {
     // looking for indentical ACK seq. no.
-    if (seq == m_piACKSeqNo[j % m_iSize])
-    {
+    if (seq == m_piACKSeqNo[j % m_iSize]) {
       // return Data ACK
       j %= m_iSize;
       ack = m_piACK[j];
@@ -126,12 +115,10 @@ int CACKWindow::acknowledge(int32_t seq, int32_t& ack)
       // calculate RTT
       int rtt = int(CTimer::getTime() - m_pTimeStamp[j]);
 
-      if (j == m_iHead)
-      {
+      if (j == m_iHead) {
         m_iTail = m_iHead = 0;
         m_piACKSeqNo[0] = -1;
-      }
-      else
+      } else
         m_iTail = (j + 1) % m_iSize;
 
       return rtt;
@@ -171,21 +158,18 @@ m_ProbeTime()
     m_piProbeWindow[k] = 1000;
 }
 
-CPktTimeWindow::~CPktTimeWindow()
-{
+CPktTimeWindow::~CPktTimeWindow() {
   delete [] m_piPktWindow;
   delete [] m_piPktReplica;
   delete [] m_piProbeWindow;
   delete [] m_piProbeReplica;
 }
 
-int CPktTimeWindow::getMinPktSndInt() const
-{
+int CPktTimeWindow::getMinPktSndInt() const {
   return m_iMinPktSndInt;
 }
 
-int CPktTimeWindow::getPktRcvSpeed() const
-{
+int CPktTimeWindow::getPktRcvSpeed() const {
   // get median value, but cannot change the original value order in the window
   std::copy(m_piPktWindow, m_piPktWindow + m_iAWSize - 1, m_piPktReplica);
   std::nth_element(m_piPktReplica, m_piPktReplica + (m_iAWSize / 2), m_piPktReplica + m_iAWSize - 1);

@@ -43,20 +43,18 @@ written by
 
 #include <list>
 #include <vector>
-
 #include "common.h"
 #include "udt.h"
 
-class CCacheItem
-{
+class CCacheItem {
 public:
   virtual ~CCacheItem() {}
 
 public:
-  virtual CCacheItem& operator=(const CCacheItem&) = 0;
+  virtual CCacheItem& operator = (const CCacheItem&) = 0;
 
   // The "==" operator SHOULD only compare key values.
-  virtual bool operator==(const CCacheItem&) = 0;
+  virtual bool operator == (const CCacheItem&) = 0;
 
     // Functionality:
     //    get a deep copy clone of the current item
@@ -81,8 +79,7 @@ public:
   virtual void release() {}
 };
 
-template<typename T> class CCache
-{
+template<typename T> class CCache {
 public:
   CCache(int size = 1024):
   m_iMaxSize(size),
@@ -93,8 +90,7 @@ public:
     CGuard::createMutex(m_Lock);
   }
 
-  ~CCache()
-  {
+  ~CCache() {
     clear();
     CGuard::releaseMutex(m_Lock);
   }
@@ -107,8 +103,7 @@ public:
     // Returned value:
     //    0 if found a match, otherwise -1.
 
-  int lookup(T* data)
-  {
+  int lookup(T* data) {
     CGuard cacheguard(m_Lock);
 
     int key = data->getKey();
@@ -288,6 +283,5 @@ public:
 
   static void convert(const sockaddr* addr, int ver, uint32_t ip[]);
 };
-
 
 #endif

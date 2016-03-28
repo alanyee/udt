@@ -42,17 +42,9 @@ written by
 #define __UDT_H__
 
 
-#ifndef WIN32
-  #include <sys/types.h>
-  #include <sys/socket.h>
-  #include <netinet/in.h>
-#else
-  #ifdef __MINGW__
-    #include <stdint.h>
-    #include <ws2tcpip.h>
-  #endif
-  #include <windows.h>
-#endif
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include <fstream>
 #include <set>
 #include <string>
@@ -116,8 +108,7 @@ typedef std::set<UDTSOCKET> ud_set;
 #define UD_SET(u, uset) ((uset)->insert(u))
 #define UD_ZERO(uset) ((uset)->clear())
 
-enum EPOLLOpt
-{
+enum EPOLLOpt {
   // this values are defined same as linux epoll.h
   // so that if system values are used by mistake, they should have the same effect
   UDT_EPOLL_IN = 0x1,
@@ -129,13 +120,12 @@ enum UDTSTATUS {INIT = 1, OPENED, LISTENING, CONNECTING, CONNECTED, BROKEN, CLOS
 
 ////////////////////////////////////////////////////////////////////////////////
 
-enum UDTOpt
-{
+enum UDTOpt {
   UDT_MSS,             // the Maximum Transfer Unit
   UDT_SNDSYN,          // if sending is blocking
   UDT_RCVSYN,          // if receiving is blocking
   UDT_CC,              // custom congestion control algorithm
-  UDT_FC,   // Flight flag size (window size)
+  UDT_FC,              // Flight flag size (window size)
   UDT_SNDBUF,          // maximum buffer in sending queue
   UDT_RCVBUF,          // UDT receiving buffer size
   UDT_LINGER,          // waiting for unsent data when closing
@@ -147,17 +137,16 @@ enum UDTOpt
   UDT_SNDTIMEO,        // send() timeout
   UDT_RCVTIMEO,        // recv() timeout
   UDT_REUSEADDR,  // reuse an existing port or create a new one
-  UDT_MAXBW,    // maximum bandwidth (bytes per second) that the connection can use
-  UDT_STATE,    // current socket state, see UDTSTATUS, read only
-  UDT_EVENT,    // current avalable events associated with the socket
+  UDT_MAXBW,      // maximum bandwidth (bytes per second) that the connection can use
+  UDT_STATE,      // current socket state, see UDTSTATUS, read only
+  UDT_EVENT,      // current avalable events associated with the socket
   UDT_SNDDATA,    // size of data in the sending buffer
-  UDT_RCVDATA   // size of data available for recv
+  UDT_RCVDATA     // size of data available for recv
 };
 
 ////////////////////////////////////////////////////////////////////////////////
 
-struct CPerfMon
-{
+struct CPerfMon {
   // global measurements
   int64_t msTimeStamp;                 // time since the UDT entity is started, in milliseconds
   int64_t pktSentTotal;                // total number of sent data packets, including retransmissions
@@ -198,8 +187,7 @@ struct CPerfMon
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class UDT_API CUDTException
-{
+class UDT_API CUDTException {
 public:
   CUDTException(int major = 0, int minor = 0, int err = -1);
   CUDTException(const CUDTException& e);
@@ -297,8 +285,7 @@ public: // Error Code
 // The following APIs: sendfile(), recvfile(), epoll_wait(), geterrormsg(),
 // include C++ specific feature, please use the corresponding sendfile2(), etc.
 
-namespace UDT
-{
+namespace UDT {
 
 typedef CUDTException ERRORINFO;
 typedef UDTOpt SOCKOPT;

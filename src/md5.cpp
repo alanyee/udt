@@ -129,8 +129,7 @@
 
 
 static void
-md5_process(md5_state_t *pms, const md5_byte_t *data /*[64]*/)
-{
+md5_process(md5_state_t *pms, const md5_byte_t *data /*[64]*/) {
     md5_word_t
 	a = pms->abcd[0], b = pms->abcd[1],
 	c = pms->abcd[2], d = pms->abcd[3];

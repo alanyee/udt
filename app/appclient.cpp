@@ -1,13 +1,7 @@
-#ifndef WIN32
-  #include <unistd.h>
-  #include <cstdlib>
-  #include <cstring>
-  #include <netdb.h>
-#else
-  #include <winsock2.h>
-  #include <ws2tcpip.h>
-  #include <wspiapi.h>
-#endif
+#include <unistd.h>
+#include <cstdlib>
+#include <cstring>
+#include <netdb.h>
 #include <iostream>
 #include <udt.h>
 #include "cc.h"
@@ -15,11 +9,7 @@
 
 using namespace std;
 
-#ifndef WIN32
 void* monitor(void*);
-#else
-DWORD WINAPI monitor(LPVOID);
-#endif
 
 int main(int argc, char* argv[]) {
   if (((3 != argc) || (0 == atoi(argv[2]))) && ((5 != argc) || strcmp(argv[3], "-t") || (0 == atoi(argv[4])))) {
@@ -71,11 +61,7 @@ int main(int argc, char* argv[]) {
   int size = 100000;
   char* data = new char[size];
 
-  #ifndef WIN32
-    pthread_create(new pthread_t, NULL, monitor, &client);
-  #else
-    CreateThread(NULL, 0, monitor, &client, 0, NULL);
-  #endif
+  pthread_create(new pthread_t, NULL, monitor, &client);
 
   for (int i = 0; i < 1000000; ++i) {
     int ssize = 0;
@@ -97,12 +83,7 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 
-#ifndef WIN32
-void* monitor(void* s)
-#else
-DWORD WINAPI monitor(LPVOID s)
-#endif
-{
+void* monitor(void* s) {
   UDTSOCKET u = *(UDTSOCKET*)s;
 
   UDT::TRACEINFO perf;
@@ -110,11 +91,7 @@ DWORD WINAPI monitor(LPVOID s)
   cout << "SendRate(Mb/s)\tRTT(ms)\tCWnd\tPktSndPeriod(us)\tRecvACK\tRecvNAK" << endl;
 
   while (true) {
-    #ifndef WIN32
-      sleep(1);
-    #else
-      Sleep(1000);
-    #endif
+    sleep(1);
 
     if (UDT::ERROR == UDT::perfmon(u, &perf)) {
       cout << "perfmon: " << UDT::getlasterror().getErrorMessage() << endl;
@@ -129,9 +106,5 @@ DWORD WINAPI monitor(LPVOID s)
         << perf.pktRecvNAK << endl;
   }
 
-  #ifndef WIN32
-    return NULL;
-  #else
-    return 0;
-  #endif
+  return NULL;
 }

@@ -52,8 +52,7 @@ written by
 
 class CUDT;
 
-class CUDTSocket
-{
+class CUDTSocket {
 public:
   CUDTSocket();
   ~CUDTSocket();
@@ -93,8 +92,7 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class CUDTUnited
-{
+class CUDTUnited {
 friend class CUDT;
 friend class CRendezvousQueue;
 

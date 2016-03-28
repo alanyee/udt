@@ -121,8 +121,7 @@ private:
 private:
   pthread_mutex_t m_BufLock;           // used to synchronize buffer operation
 
-  struct Block
-  {
+  struct Block {
     char* m_pcData;                   // pointer to the data block
     int m_iLength;                    // length of the block
 
@@ -138,8 +137,7 @@ private:
   // m_pCurrBlock:  The current block
   // m_pLastBlock:     The last block (if first == last, buffer is empty)
 
-  struct Buffer
-  {
+  struct Buffer {
     char* m_pcData;     // buffer
     int m_iSize;      // size
     Buffer* m_pNext;      // next buffer
@@ -159,8 +157,7 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class CRcvBuffer
-{
+class CRcvBuffer {
 public:
   CRcvBuffer(CUnitQueue* queue, int bufsize = 65536);
   ~CRcvBuffer();

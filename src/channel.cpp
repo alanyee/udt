@@ -38,34 +38,17 @@ written by
   Yunhong Gu, last updated 01/27/2011
 *****************************************************************************/
 
-#ifndef WIN32
-  #include <netdb.h>
-  #include <arpa/inet.h>
-  #include <unistd.h>
-  #include <fcntl.h>
-  #include <cstring>
-  #include <cstdio>
-  #include <cerrno>
-#else
-  #include <winsock2.h>
-  #include <ws2tcpip.h>
-  #ifdef LEGACY_WIN32
-    #include <wspiapi.h>
-  #endif
-#endif
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <cstring>
+#include <cstdio>
+#include <cerrno>
 #include "channel.h"
 #include "packet.h"
 
-#ifdef WIN32
-  #define socklen_t int
-#endif
-
-#ifndef WIN32
-  #define NET_ERROR errno
-#else
-  #define NET_ERROR WSAGetLastError()
-#endif
-
+#define NET_ERROR errno
 
 CChannel::CChannel():
 m_iIPversion(AF_INET),

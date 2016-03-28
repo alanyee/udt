@@ -41,16 +41,12 @@ written by
 #ifndef __UDT_WINDOW_H__
 #define __UDT_WINDOW_H__
 
-
-#ifndef WIN32
-  #include <sys/time.h>
-  #include <time.h>
-#endif
+#include <sys/time.h>
+#include <time.h>
 #include "udt.h"
 
 
-class CACKWindow
-{
+class CACKWindow {
 public:
   CACKWindow(int size = 1024);
   ~CACKWindow();
@@ -91,8 +87,7 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class CPktTimeWindow
-{
+class CPktTimeWindow {
 public:
   CPktTimeWindow(int asize = 16, int psize = 16);
   ~CPktTimeWindow();

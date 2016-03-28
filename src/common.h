@@ -52,20 +52,9 @@ written by
 #include <cstdlib>
 #include "udt.h"
 
-
-#ifdef WIN32
-  // Windows compability
-  typedef HANDLE pthread_t;
-  typedef HANDLE pthread_mutex_t;
-  typedef HANDLE pthread_cond_t;
-  typedef DWORD pthread_key_t;
-#endif
-
-
 ////////////////////////////////////////////////////////////////////////////////
 
-class CTimer
-{
+class CTimer {
 public:
   CTimer();
   ~CTimer();
