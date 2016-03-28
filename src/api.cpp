@@ -981,7 +981,7 @@ CUDTSocket* CUDTUnited::locate(const UDTSOCKET u) {
 CUDTSocket* CUDTUnited::locate(const sockaddr* peer, const UDTSOCKET id, int32_t isn) {
   CGuard cg(m_ControlLock);
 
-  map<int64_t, set<UDTSOCKET>>::iterator i = m_PeerRec.find((id << 30) + isn);
+  map<int64_t, set<UDTSOCKET> >::iterator i = m_PeerRec.find((id << 30) + isn);
   if (i == m_PeerRec.end()) return NULL;
 
   for (set<UDTSOCKET>::iterator j = i->second.begin(); j != i->second.end(); ++j) {

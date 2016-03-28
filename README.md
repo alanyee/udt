@@ -145,8 +145,8 @@ new connection: 999.999.999.999:14319
 recv:Connection was broken.
 ```
 ### Remove Windows support (WIP)
-I am only testing for Linux/Unix support. So, removing macro guards improves 
-the code's readability. Fat meat is greasy.
+I am only testing for Linux/Unix support. So, removing Windows support code 
+such as macro guards improves the code's readability. Fat meat is greasy.
 
 ## TODOS
 * ~~If it can't open a port, stderr~~
