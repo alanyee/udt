@@ -165,7 +165,7 @@ such as macro guards improves the code's readability. Fat meat is greasy.
 * ~~Sender (-t): total time of test~~
 * sendfile to udtfileserver
 * recvfile to udtrecvfile
-* replace atoi with strtol
 * (WIP) Remove Windows support
 * [Google's C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
 * Add "auto". Right now, code works with gcc version: 4.4.7
+* replace atoi with strtol
