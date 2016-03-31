@@ -5,23 +5,23 @@ Using udt for iDPL.
 
 ## Technical Details of Original Version
 
-### Troubleshooting
+### Some Notes
 
 * Sometimes `appclient` and/or `appserver` will not work, so try using 
 `./appclient` instead of `appclient`.
 * Sometimes, appclient and/or appserver still will not listen: 
 `error while loading shared libraries: libudt.so: cannot open shared object file: No such file or directory`.
 Try `export LD_LIBRARY_PATH=../src` in app directory.
+* Sometimes, I refer to `appserver` as receiver and `appclient` as sender.
 
 ### Original appserver and appclient
 
-1. google udt and goto http://udt.sourceforge.net/ (original)
+1. Google udt and goto http://udt.sourceforge.net/ (original)
 2. `wget`, `scp`, and/or `tar -xvcf` [source] to get file
-3. run `make` in the home directory, as it will also run `make` in the app directory
-
-5. Usage (run the server first before the client or else connect  error)
+3. Run `make` in the home directory, as it will also run `make` in the app directory
+4. Usage (run the server first before the client or else connect  error)
 ```
-[alanyee@point-a app]$ curl http://ipecho.net/plain; echo
+[alanyee@point-a app]$ curl http://ipecho.net/plain
 99.99.99.99
 ```
 So,
@@ -57,11 +57,9 @@ server is ready at port: 8888
 new connection: 999.999.999.999:13587
 ```
 
-Breaking the client stops the client while the server reads:
-`recv:Connection was broken.`
-
-But breaking the server stops the server while the client continues to print 
-out zeros for RecvACK and Sendrate.
+Breaking the sender makes the receiver print: `recv:Connection was broken.` 
+Yet, the receiver continues running. Breaking the receiver makes the sender 
+print out zeros for RecvACK and Sendrate. The sender also continues running.
 
 ### Original sendfile and recvfile (similar to appclient and appserver respectively)
 
@@ -144,14 +142,26 @@ server is ready at port: 8888
 new connection: 999.999.999.999:14319
 recv:Connection was broken.
 ```
-### Remove Windows support (WIP)
+### Sender (-t): total time of test
+```
+appclient 99.99.99.99 8888 -t 2 
+SendRate(Mb/s)	RTT(ms)	CWnd	PktSndPeriod(us)	RecvACK	RecvNAK
+258.51          0.469   9065    23.3852             308     172
+587.991         0.521   9708    19.2079             732     0
+Summary: 846501 bytes sent
+```
+The timer option stops the sender after a user-specified number of seconds. 
+When stopped, the sender prints out a summary detailing how many bytes have 
+been sent, and then the sender closes.
+
+### Remove Windows support (Work in Progress)
 I am only testing for Linux/Unix support. So, removing Windows support code 
 such as macro guards improves the code's readability. Fat meat is greasy.
 
 ## TODOS
 * ~~If it can't open a port, stderr~~
 * ~~One-shot (-1) option for receiver~~
-* Sender (-t): total time of test i.e.
+* ~~Sender (-t): total time of test~~
 ```
 appclient 99.99.99.99 8888 -t 20 
 Summary: 11 bytes sent
@@ -160,6 +170,7 @@ where 20 is counted in units of seconds.
 
 * sendfile to udtfileserver
 * recvfile to udtrecvfile
+* replace atoi with strtol
 * (WIP) Remove Windows support
 * [Google's C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
 * Add "auto". Right now, code works with gcc version: 4.4.7
