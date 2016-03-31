@@ -149,6 +149,7 @@ SendRate(Mb/s)	RTT(ms)	CWnd	PktSndPeriod(us)	RecvACK	RecvNAK
 258.51          0.469   9065    23.3852             308     172
 587.991         0.521   9708    19.2079             732     0
 Summary: 846501 bytes sent
+send:Connection was broken.
 ```
 The timer option stops the sender after a user-specified number of seconds. 
 When stopped, the sender prints out a summary detailing how many bytes have 
@@ -162,12 +163,6 @@ such as macro guards improves the code's readability. Fat meat is greasy.
 * ~~If it can't open a port, stderr~~
 * ~~One-shot (-1) option for receiver~~
 * ~~Sender (-t): total time of test~~
-```
-appclient 99.99.99.99 8888 -t 20 
-Summary: 11 bytes sent
-```
-where 20 is counted in units of seconds.
-
 * sendfile to udtfileserver
 * recvfile to udtrecvfile
 * replace atoi with strtol
