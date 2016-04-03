@@ -163,7 +163,7 @@ such as macro guards improves the code's readability. Fat meat is greasy.
 * ~~If it can't open a port, stderr~~
 * ~~One-shot (-1) option for receiver~~
 * ~~Sender (-t): total time of test~~
-* sendfile (-t)
+* sendfile (-1)
 * sendfile to udtfileserver
 * recvfile to udtrecvfile
 * (WIP) Remove Windows support
