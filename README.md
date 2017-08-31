@@ -17,7 +17,7 @@ Try `export LD_LIBRARY_PATH=../src` in app directory.
 ### Original appserver and appclient
 
 1. Google udt and goto http://udt.sourceforge.net/ (original)
-2. `wget`, `scp`, and/or `tar -xvcf` [source] to get file
+2. `curl`, `scp`, and/or `tar -xvcf` [source] to get file
 3. Run `make` in the home directory, as it will also run `make` in the app directory
 4. Usage (run the server first before the client or else connect  error)
 ```
